@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/logo_baidu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:padding="5dp"
+        android:src="@drawable/logo_baidu" />
+
+    <ImageView
+        android:id="@+id/logo_bilibili"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/logo_baidu"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_bilibili" />
+
+    <ImageView
+        android:id="@+id/logo_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_baidu"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:padding="5dp"
+        android:src="@drawable/logo_facebook" />
+
+    <ImageView
+        android:id="@+id/logo_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_bilibili"
+        android:layout_toRightOf="@id/logo_facebook"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_github" />
+
+    <ImageView
+        android:id="@+id/logo_instagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_github"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_instagram" />
+
+    <ImageView
+        android:id="@+id/logo_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_github"
+        android:layout_toRightOf="@id/logo_instagram"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_google" />
+
+    <ImageView
+        android:id="@+id/logo_netease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_instagram"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_netease" />
+
+    <ImageView
+        android:id="@+id/logo_steam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_google"
+        android:layout_toRightOf="@id/logo_netease"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_steam" />
+
+    <ImageView
+        android:id="@+id/logo_tencent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_netease"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_tencent" />
+
+    <ImageView
+        android:id="@+id/logo_twitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_steam"
+        android:layout_toRightOf="@id/logo_tencent"
+        android:padding="5dp"
+        android:clickable="true"
+        android:onClick="onWebsiteSelected"
+        android:src="@drawable/logo_twitter" />
+</RelativeLayout>
