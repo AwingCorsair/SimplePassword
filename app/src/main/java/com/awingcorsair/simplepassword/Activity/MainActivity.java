@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.awingcorsair.simplepassword.R;
+import com.awingcorsair.simplepassword.Util.navigitionInit;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.Bind;
@@ -21,10 +22,14 @@ import rx.functions.Action1;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.fab) FloatingActionButton fab;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.drawer_layout) DrawerLayout drawer;
-    @Bind(R.id.nav_view) NavigationView navigationView;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         initiUI();
 
         //    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    //    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -51,7 +56,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void initiUI(){
+    public void initiUI() {
         setSupportActionBar(toolbar);
         RxView.clicks(fab).subscribe(new Action1<Void>() {
             @Override
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-    //    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -69,13 +74,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void onFabClicked(){
-        startActivity(new Intent(this,AddActivity.class));
+    public void onFabClicked() {
+        startActivity(new Intent(this, AddActivity.class));
     }
 
     @Override
     public void onBackPressed() {
-    //    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -105,28 +110,36 @@ public class MainActivity extends AppCompatActivity
 //        return super.onOptionsItemSelected(item);
 //    }
 
+    //    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_database) {
+//
+//        } else if (id == R.id.nav_setting) {
+//            Toast.makeText(this,"1",Toast.LENGTH_SHORT).show();
+//        } else if (id == R.id.nav_feedback) {
+//
+//        } else if (id == R.id.nav_star) {
+//
+//        } else if (id == R.id.nav_about) {
+//
+//        } else if (id == R.id.nav_quit) {
+//         //   System.exit(0);
+//        }
+//
+//   //     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_database) {
-
-        } else if (id == R.id.nav_setting) {
-
-        } else if (id == R.id.nav_feedback) {
-
-        } else if (id == R.id.nav_star) {
-
-        } else if (id == R.id.nav_about) {
-
-        } else if (id == R.id.nav_quit) {
-
-        }
-
-   //     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        navigitionInit init=new navigitionInit();
+        init.setMenu(MainActivity.this,item,drawer);
         return true;
     }
 }

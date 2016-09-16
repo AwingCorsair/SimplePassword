@@ -1,30 +1,33 @@
 package com.awingcorsair.simplepassword.Activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.awingcorsair.simplepassword.Adapter.SimpleImageArrayAdapter;
 import com.awingcorsair.simplepassword.R;
+import com.awingcorsair.simplepassword.Util.navigitionInit;
+import com.awingcorsair.simplepassword.Util.passwordGenerater;
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxCompoundButton;
+
+import java.security.SecureRandom;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.techery.progresshint.addition.widget.SeekBar;
 import rx.functions.Action1;
 
 /**
@@ -48,6 +51,10 @@ public class AddActivity extends AppCompatActivity
     @Bind(R.id.add_input_userPass)
     EditText input_userPass;
     AlertDialog dialog;
+    @Bind(R.id.seekbar)
+    SeekBar seekBar;
+    @Bind(R.id.generate_pass)
+    Button generate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +93,15 @@ public class AddActivity extends AppCompatActivity
                 .setView(R.layout.alert_add)
                 .create();
         dialog.show();
-        SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(AddActivity.this,
-                new Integer[]{R.drawable.logo_baidu, R.drawable.logo_bilibili, R.drawable.logo_facebook, R.drawable.logo_github, R.drawable.logo_google});
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(AddActivity.this, " " + which, Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.show();
+//        SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(AddActivity.this,
+//                new Integer[]{R.drawable.logo_baidu, R.drawable.logo_bilibili, R.drawable.logo_facebook, R.drawable.logo_github, R.drawable.logo_google});
+//        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(AddActivity.this, " " + which, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        builder.show();
 //        builder.setView(R.layout.alert_add);
 
         //设置窗口的大小
@@ -117,12 +124,40 @@ public class AddActivity extends AppCompatActivity
         //    toggle.syncState();
         //    ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,)
         //toolbar.setNavigationIcon(R.drawable.arrow_back_black_18x18);
+        navigationView.setNavigationItemSelectedListener(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        RxView.clicks(generate).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                passwordGenerater generater = new passwordGenerater();
+                input_userPass.setText(generater.randomString(seekBar.getProgress()));
+            }
+        });
+
         RxToolbar.navigationClicks(toolbar).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 onBackPressed();
+            }
+        });
+        seekBar.setMax(16);
+        seekBar.setProgress(6);
+        seekBar.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
+                //Toast.makeText(AddActivity.this, " " + progress, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
+
             }
         });
     }
@@ -146,23 +181,8 @@ public class AddActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_database) {
-
-        } else if (id == R.id.nav_setting) {
-
-        } else if (id == R.id.nav_feedback) {
-
-        } else if (id == R.id.nav_star) {
-
-        } else if (id == R.id.nav_about) {
-
-        } else if (id == R.id.nav_quit) {
-
-        }
-
-        //     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        navigitionInit init = new navigitionInit();
+        init.setMenu(AddActivity.this, item, drawer);
         return true;
     }
 
@@ -170,6 +190,7 @@ public class AddActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.logo_baidu:
                 input_website.setText("www.baidu.com");
+                input_userPass.setText(randomString(10));
                 dialog.dismiss();
                 break;
             case R.id.logo_bilibili:
@@ -218,9 +239,18 @@ public class AddActivity extends AppCompatActivity
 
                 break;
             default:
-              //  Toast.makeText(this, " " + view.getId(), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(this, " " + view.getId(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
+    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()'_=+-/[{]};:',<.>/?";
+    static SecureRandom rnd = new SecureRandom();
+
+    String randomString(int len) {
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        return sb.toString();
+    }
 }
