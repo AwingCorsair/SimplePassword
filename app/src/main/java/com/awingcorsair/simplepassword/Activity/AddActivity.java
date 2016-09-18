@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +17,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.awingcorsair.simplepassword.Database.DatabaseHelper;
+import com.awingcorsair.simplepassword.Model.Record;
 import com.awingcorsair.simplepassword.R;
+
 import com.awingcorsair.simplepassword.Util.navigitionInit;
-import com.awingcorsair.simplepassword.Util.passwordGenerater;
+import com.awingcorsair.simplepassword.Util.passwordGenerator;
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxbinding.widget.RxCompoundButton;
-
-import java.security.SecureRandom;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,11 +51,15 @@ public class AddActivity extends AppCompatActivity
     EditText input_userId;
     @Bind(R.id.add_input_userPass)
     EditText input_userPass;
+    @Bind(R.id.add_input_note)
+    EditText input_note;
     AlertDialog dialog;
     @Bind(R.id.seekbar)
     SeekBar seekBar;
     @Bind(R.id.generate_pass)
     Button generate;
+    private static int id=0;
+    private DatabaseHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class AddActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         initUI();
+        helper=new DatabaseHelper(this);
     }
 
     @Override
@@ -131,8 +137,8 @@ public class AddActivity extends AppCompatActivity
         RxView.clicks(generate).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                passwordGenerater generater = new passwordGenerater();
-                input_userPass.setText(generater.randomString(seekBar.getProgress()));
+                passwordGenerator generator = new passwordGenerator();
+                input_userPass.setText(generator.randomString(seekBar.getProgress()));
             }
         });
 
@@ -173,7 +179,18 @@ public class AddActivity extends AppCompatActivity
     }
 
     public void onFabClicked() {
-        startActivity(new Intent(this, AddActivity.class));
+        if(!input_website.getText().toString().isEmpty()&&!input_userId.getText().toString().isEmpty()&&!input_userPass.getText().toString().isEmpty()&&!input_note.getText().toString().isEmpty()){
+            int id=helper.getRecordCounts();
+            Record newRecord=new Record(id,input_website.getText().toString(),input_userId.getText().toString(),input_userPass.getText().toString(),input_note.getText().toString());
+            Log.d("fab"," "+id);
+            helper.addRecord(newRecord);
+            Intent intent=new Intent(this,MainActivity.class);
+            intent.putExtra("activity_value","add_trans");
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(this,"请输入完整信息",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -190,7 +207,6 @@ public class AddActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.logo_baidu:
                 input_website.setText("www.baidu.com");
-                input_userPass.setText(randomString(10));
                 dialog.dismiss();
                 break;
             case R.id.logo_bilibili:
@@ -244,13 +260,4 @@ public class AddActivity extends AppCompatActivity
         }
     }
 
-    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()'_=+-/[{]};:',<.>/?";
-    static SecureRandom rnd = new SecureRandom();
-
-    String randomString(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
-    }
 }

@@ -1,19 +1,33 @@
 package com.awingcorsair.simplepassword.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.awingcorsair.simplepassword.Adapter.RecordAdapter;
+import com.awingcorsair.simplepassword.Database.DatabaseHelper;
+import com.awingcorsair.simplepassword.Model.Record;
 import com.awingcorsair.simplepassword.R;
 import com.awingcorsair.simplepassword.Util.navigitionInit;
 import com.jakewharton.rxbinding.view.RxView;
+import com.ramotion.foldingcell.FoldingCell;
+
+import net.sqlcipher.database.SQLiteDatabase;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +44,14 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
     NavigationView navigationView;
+    @Bind(R.id.list_main)
+    ListView records;
+    private RecordAdapter adapter;
+    private DatabaseHelper databaseHelper;
+    private List<Record> recordList;
+    private SQLiteDatabase db;
+    boolean doubleBackToExitPressedOnce = false;
+//    final FoldingCell fc = (FoldingCell) findViewById(R.id.folding_cell);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +60,18 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         initiUI();
+        SQLiteDatabase.loadLibs(this);
+        databaseHelper = new DatabaseHelper(this);
+        recordList = databaseHelper.getAllRecord();
+        adapter = new RecordAdapter(this, recordList);
+        records.setAdapter(adapter);
+//        fc.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fc.toggle(false);
+//            }
+//        });
+// get our folding cell
 
         //    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -65,6 +99,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        // attach click listener to folding cell
+        //fc.initialize(1000, Color.GRAY, 1);
+
+
         //    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -78,14 +116,32 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(this, AddActivity.class));
     }
 
+    //    @Override
+//    public void onBackPressed() {
+//        //    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
     @Override
     public void onBackPressed() {
-        //    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            return;
         }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
 //    @Override
@@ -138,8 +194,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        navigitionInit init=new navigitionInit();
-        init.setMenu(MainActivity.this,item,drawer);
+        navigitionInit init = new navigitionInit();
+        init.setMenu(MainActivity.this, item, drawer);
         return true;
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/unfolded_show_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_google"/>
+    <TextView
+        android:id="@+id/unfolded_show_website"
+        android:text="sssssss"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_toRightOf="@id/unfolded_show_logo"/>
+    <TextView
+        android:id="@+id/unfolded_show_username"
+        android:text="username"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_below="@id/unfolded_show_logo"/>
+    <Button
+        android:id="@+id/unfolded_show_copyUsername"
+        android:text="COPY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/unfolded_show_username"
+        android:layout_below="@id/unfolded_show_website"/>
+    <TextView
+        android:id="@+id/unfolded_show_password"
+        android:text="username"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_below="@id/unfolded_show_username"/>
+    <Button
+        android:id="@+id/unfolded_show_copyPassword"
+        android:text="COPY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/unfolded_show_password"
+        android:layout_below="@id/unfolded_show_copyUsername"
+        />
+</RelativeLayout>

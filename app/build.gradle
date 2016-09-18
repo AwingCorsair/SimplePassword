@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.awingcorsair.simplepassword"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -38,4 +38,6 @@ dependencies {
     compile 'com.github.scottyab:showhidepasswordedittext:0.6'
     compile files('libs/feedback_v6.jar')
     compile 'com.github.techery.progresshint:library-addition:0.2.3'
+    compile 'com.ramotion.foldingcell:folding-cell:1.0.1'
+    compile 'net.zetetic:android-database-sqlcipher:3.5.4@aar'
 }
