@@ -22,7 +22,7 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cell_show"
+            android:background="@color/cell_test2"
             android:visibility="gone"
             >
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

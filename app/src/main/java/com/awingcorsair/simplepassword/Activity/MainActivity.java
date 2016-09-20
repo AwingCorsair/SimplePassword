@@ -23,7 +23,9 @@ import com.awingcorsair.simplepassword.Adapter.RecordAdapter;
 import com.awingcorsair.simplepassword.Database.DatabaseHelper;
 import com.awingcorsair.simplepassword.Model.Record;
 import com.awingcorsair.simplepassword.R;
+import com.awingcorsair.simplepassword.Util.CloseActivityClass;
 import com.awingcorsair.simplepassword.Util.navigitionInit;
+import com.awingcorsair.simplepassword.Util.utils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.ramotion.foldingcell.FoldingCell;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     private List<Record> recordList;
     private SQLiteDatabase db;
     boolean doubleBackToExitPressedOnce = false;
+    utils util=new utils();
 //    final FoldingCell fc = (FoldingCell) findViewById(R.id.folding_cell);
 
     @Override
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        CloseActivityClass.activityList.add(this);
 
 
         //  Declare a new thread to do a preference check
@@ -95,7 +99,9 @@ public class MainActivity extends AppCompatActivity
         // Start the thread
         t.start();
 
-
+        if(util.getFlag(this)){
+            startActivity(new Intent(this, LockActivity.class));
+        }
         initiUI();
         SQLiteDatabase.loadLibs(this);
         databaseHelper = new DatabaseHelper(this);
@@ -135,7 +141,6 @@ public class MainActivity extends AppCompatActivity
                 onFabClicked();
             }
         });
-
         // attach click listener to folding cell
         //fc.initialize(1000, Color.GRAY, 1);
 
@@ -151,6 +156,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onFabClicked() {
         startActivity(new Intent(this, AddActivity.class));
+        finish();
     }
 
     //    @Override
@@ -165,8 +171,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+            util.setFlag(MainActivity.this,true);
+            CloseActivityClass.exitClient(MainActivity.this);
         }
 
         this.doubleBackToExitPressedOnce = true;
@@ -234,5 +240,30 @@ public class MainActivity extends AppCompatActivity
         navigitionInit init = new navigitionInit();
         init.setMenu(MainActivity.this, item, drawer);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        util.setFlag(MainActivity.this,true);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        Bundle bundle=this.getIntent().getExtras();
+//        String result=bundle.getString("activity_value");
+        if(util.getFlag(this)){
+            startActivity(new Intent(this, LockActivity.class));
+        }
+//        if(!util.getFlag(this)&&result.equals("isFromAdd")){
+//            startActivity(new Intent(this, LockActivity.class));
+//        }
     }
 }

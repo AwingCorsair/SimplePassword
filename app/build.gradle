@@ -41,5 +41,4 @@ dependencies {
     compile 'com.ramotion.foldingcell:folding-cell:1.0.1'
     compile 'net.zetetic:android-database-sqlcipher:3.5.4@aar'
     compile 'com.github.paolorotolo:appintro:4.0.0'
-    compile 'me.zhanghai.android.patternlock:library:2.0.4'
 }

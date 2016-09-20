@@ -5,4 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="cell_main">#9E9E9E</color>
     <color name="cell_show">#66BB6A</color>
+    <color name="cell_test1">#666699</color>
+    <color name="cell_test2">#80CBC4
+    </color>
+    <color name="setlocktext">#FFFFFF</color>
+    <color name="colorPrimaryTeal">#009688</color>
+    <color name="colorPrimaryDarkTeal">#00796B</color>
+    <color name="colorAccentTeal">#EF5350</color>
 </resources>

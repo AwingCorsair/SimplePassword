@@ -48,7 +48,10 @@ public class navigitionInit {
             showAbout(context);
             flag=true;
         } else if (id == R.id.nav_quit) {
-            System.exit(0);
+            utils util=new utils();
+            util.setFlag(context,true);
+            CloseActivityClass.exitClient(context);
+        //    System.exit(0);
         }
         //     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if(!flag){

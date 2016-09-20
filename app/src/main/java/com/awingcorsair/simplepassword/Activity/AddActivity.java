@@ -21,8 +21,10 @@ import com.awingcorsair.simplepassword.Database.DatabaseHelper;
 import com.awingcorsair.simplepassword.Model.Record;
 import com.awingcorsair.simplepassword.R;
 
+import com.awingcorsair.simplepassword.Util.CloseActivityClass;
 import com.awingcorsair.simplepassword.Util.navigitionInit;
 import com.awingcorsair.simplepassword.Util.passwordGenerator;
+import com.awingcorsair.simplepassword.Util.utils;
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.jakewharton.rxbinding.view.RxView;
 
@@ -60,14 +62,15 @@ public class AddActivity extends AppCompatActivity
     Button generate;
     private static int id=0;
     private DatabaseHelper helper;
-
+    utils util=new utils();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
-
         initUI();
+        CloseActivityClass.activityList.add(this);
+
         helper=new DatabaseHelper(this);
     }
 
@@ -175,6 +178,8 @@ public class AddActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            util.setFlag(AddActivity.this,false);
+            startActivity(new Intent(this,MainActivity.class));
         }
     }
 
@@ -185,7 +190,8 @@ public class AddActivity extends AppCompatActivity
             Log.d("fab"," "+id);
             helper.addRecord(newRecord);
             Intent intent=new Intent(this,MainActivity.class);
-            intent.putExtra("activity_value","add_trans");
+        //    intent.putExtra("activity_value","isFromAdd");
+            util.setFlag(AddActivity.this,false);
             startActivity(intent);
             finish();
         }else{
@@ -260,4 +266,11 @@ public class AddActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        if(!util.getFlag(this)){
+//            startActivity(new Intent(this, LockActivity.class));
+//        }
+    }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.WindowManager;
 
+import com.awingcorsair.simplepassword.Util.CloseActivityClass;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 
@@ -25,7 +26,7 @@ public class IntroActivity extends AppIntro2{
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,SetLockActivity.class));
     }
 
     @Override
@@ -39,6 +40,7 @@ public class IntroActivity extends AppIntro2{
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
+        CloseActivityClass.activityList.add(this);
 
         int color_page1= Color.parseColor("#009933");
         int color_page2=Color.parseColor("#CC9900");
