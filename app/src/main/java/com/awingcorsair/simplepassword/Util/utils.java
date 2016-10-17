@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 /**
  * Created by Mao on 2016/9/18.
  */
-public class utils {
+public class Utils {
     public static void copy(String content, Context context) {
 // 得到剪贴板管理器
         ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);

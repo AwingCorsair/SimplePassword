@@ -101,13 +101,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_USERNAME,record.getUsername());
         values.put(KEY_PASSWORD,record.getPassword());
         values.put(KEY_NOTE,record.getNote());
-        return db.update(TABLE_NAME,values,KEY_ID+"=?",new String[]{String.valueOf(record.getId())});
+        Log.d("update","1:"+values);
+        int result=db.update(TABLE_NAME,values,KEY_ID+"=?",new String[]{String.valueOf(record.getId())});
+        Log.d("update","2:"+result);
+        return result;
 
     }
 
-    public void deleteRecord(Record record){
+//    public void deleteRecord(Record record){
+//        SQLiteDatabase db=this.getWritableDatabase(database_password);
+//        db.delete(TABLE_NAME,KEY_ID+"=?",new String[]{String.valueOf(record.getId())});
+//        db.close();
+//    }
+
+    public void deleteRecord(int id){
         SQLiteDatabase db=this.getWritableDatabase(database_password);
-        db.delete(TABLE_NAME,KEY_ID+"=?",new String[]{String.valueOf(record.getId())});
+        db.delete(TABLE_NAME,KEY_ID+"=?",new String[]{String.valueOf(id)});
         db.close();
     }
 

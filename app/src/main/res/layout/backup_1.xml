@@ -45,4 +45,5 @@
         android:layout_toRightOf="@id/unfolded_show_password"
         android:layout_below="@id/unfolded_show_copyUsername"
         />
+
 </RelativeLayout>

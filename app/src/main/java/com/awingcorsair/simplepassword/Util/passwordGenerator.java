@@ -7,7 +7,7 @@ import java.security.SecureRandom;
 /**
  * Created by Mao on 2016/9/16.
  */
-public class passwordGenerator {
+public class PasswordGenerator {
     //static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()'_=+-/[{]};:',<.>?\"";
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=?.";
     static SecureRandom rnd = new SecureRandom();

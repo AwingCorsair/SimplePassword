@@ -22,9 +22,9 @@ import com.awingcorsair.simplepassword.Model.Record;
 import com.awingcorsair.simplepassword.R;
 
 import com.awingcorsair.simplepassword.Util.CloseActivityClass;
-import com.awingcorsair.simplepassword.Util.navigitionInit;
-import com.awingcorsair.simplepassword.Util.passwordGenerator;
-import com.awingcorsair.simplepassword.Util.utils;
+import com.awingcorsair.simplepassword.Util.NavigitionInit;
+import com.awingcorsair.simplepassword.Util.PasswordGenerator;
+import com.awingcorsair.simplepassword.Util.Utils;
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.jakewharton.rxbinding.view.RxView;
 
@@ -60,9 +60,9 @@ public class AddActivity extends AppCompatActivity
     SeekBar seekBar;
     @Bind(R.id.generate_pass)
     Button generate;
-    private static int id=0;
+//    public static int id=0;
     private DatabaseHelper helper;
-    utils util=new utils();
+    Utils util=new Utils();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +140,7 @@ public class AddActivity extends AppCompatActivity
         RxView.clicks(generate).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                passwordGenerator generator = new passwordGenerator();
+                PasswordGenerator generator = new PasswordGenerator();
                 input_userPass.setText(generator.randomString(seekBar.getProgress()));
             }
         });
@@ -204,7 +204,7 @@ public class AddActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        navigitionInit init = new navigitionInit();
+        NavigitionInit init = new NavigitionInit();
         init.setMenu(AddActivity.this, item, drawer);
         return true;
     }

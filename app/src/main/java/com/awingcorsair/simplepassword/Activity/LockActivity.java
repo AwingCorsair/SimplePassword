@@ -1,22 +1,18 @@
 package com.awingcorsair.simplepassword.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.awingcorsair.simplepassword.R;
 import com.awingcorsair.simplepassword.Util.CloseActivityClass;
-import com.awingcorsair.simplepassword.Util.utils;
-
-import java.nio.Buffer;
+import com.awingcorsair.simplepassword.Util.Utils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,7 +62,7 @@ public class LockActivity extends AppCompatActivity{
             public void onClick(View v) {
 //                SharedPreferences sharedPreferences=getSharedPreferences("info",MODE_PRIVATE);
 //                String password=sharedPreferences.getString("mainPassword","null");
-                utils util=new utils();
+                Utils util=new Utils();
                 util.getPassword(LockActivity.this);
                 util.setFlag(LockActivity.this,false);
             //    Log.d("pass",lockPassword.getText().toString().trim()+"=?"+password);

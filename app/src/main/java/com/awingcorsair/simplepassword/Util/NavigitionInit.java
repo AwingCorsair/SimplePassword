@@ -21,7 +21,7 @@ import com.suredigit.inappfeedback.FeedbackSettings;
 /**
  * Created by Mao on 2016/9/16.
  */
-public class navigitionInit {
+public class NavigitionInit {
     static Intent intent;
     private static  FeedbackDialog feedBack;
 
@@ -48,7 +48,7 @@ public class navigitionInit {
             showAbout(context);
             flag=true;
         } else if (id == R.id.nav_quit) {
-            utils util=new utils();
+            Utils util=new Utils();
             util.setFlag(context,true);
             CloseActivityClass.exitClient(context);
         //    System.exit(0);
