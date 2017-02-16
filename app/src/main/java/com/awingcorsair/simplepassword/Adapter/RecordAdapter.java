@@ -26,24 +26,6 @@ import java.util.List;
  * Created by Mao on 2016/9/17.
  */
 public class RecordAdapter extends BaseAdapter {
-    //    @Bind(R.id.show_logo)
-//    ImageView showLogo;
-//    @Bind(R.id.show_website)
-//    TextView showWebsite;
-//    @Bind(R.id.show_note)
-//    TextView showNote;
-//    @Bind(R.id.unfolded_show_logo)
-//    ImageView unshowLogo;
-//    @Bind(R.id.unfolded_show_website)
-//    TextView unshowWebsite;
-//    @Bind(R.id.unfolded_show_username)
-//    TextView unshowUsername;
-//    @Bind(R.id.unfolded_show_password)
-//    TextView unshowPassword;
-//    @Bind(R.id.unfolded_show_copyUsername)
-//    Button copyUsername;
-//    @Bind(R.id.unfolded_show_copyPassword)
-//    Button copyPassword;
     private List<Record> records;
     private Context context;
     private Utils util=new Utils();
@@ -74,7 +56,6 @@ public class RecordAdapter extends BaseAdapter {
         //    ButterKnife.bind(activity);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
-
         }
         final int pos=position;
         final TextView showWebsite = (TextView) convertView.findViewById(R.id.show_website);
@@ -95,7 +76,6 @@ public class RecordAdapter extends BaseAdapter {
                             public void onClick(DialogInterface dialog, int which) {
                                 DatabaseHelper helper=new DatabaseHelper(context);
                                 //Record delRecord=new Record(id,input_website.getText().toString(),input_userId.getText().toString(),input_userPass.getText().toString(),input_note.getText().toString());
-
                                 helper.deleteRecord(records.get(position).getId());
                                 Toast.makeText(context,"删除完成",Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
@@ -131,9 +111,6 @@ public class RecordAdapter extends BaseAdapter {
             }
         });
 
-
-
-
         final FoldingCell fc = (FoldingCell) convertView.findViewById(R.id.folding_cell);
         //if not set , every six different view with share the same animation
         fc.fold(true);
@@ -151,18 +128,6 @@ public class RecordAdapter extends BaseAdapter {
         unshowWebsite.setText(records.get(position).getWebsite());
         unshowUsername.setText("用户名："+records.get(position).getUsername());
         unshowPassword.setText("密码："+records.get(position).getPassword());
-//        RxView.clicks(copyUsername).subscribe(new Action1<Void>() {
-//            @Override
-//            public void call(Void aVoid) {
-//                Toast.makeText(context," "+unshowUsername.getText().toString(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        RxView.clicks(copyPassword).subscribe(new Action1<Void>() {
-//            @Override
-//            public void call(Void aVoid) {
-//                Toast.makeText(context," "+unshowPassword.getText().toString(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
         return convertView;
     }
 

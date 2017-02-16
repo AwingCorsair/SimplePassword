@@ -60,7 +60,6 @@ public class AddActivity extends AppCompatActivity
     SeekBar seekBar;
     @Bind(R.id.generate_pass)
     Button generate;
-//    public static int id=0;
     private DatabaseHelper helper;
     Utils util=new Utils();
     @Override
@@ -102,19 +101,6 @@ public class AddActivity extends AppCompatActivity
                 .setView(R.layout.alert_add)
                 .create();
         dialog.show();
-//        SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(AddActivity.this,
-//                new Integer[]{R.drawable.logo_baidu, R.drawable.logo_bilibili, R.drawable.logo_facebook, R.drawable.logo_github, R.drawable.logo_google});
-//        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(AddActivity.this, " " + which, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        builder.show();
-//        builder.setView(R.layout.alert_add);
-
-        //设置窗口的大小
-        //dialog.getWindow().setLayout(1000,1500);
     }
 
     public void initUI() {
@@ -125,16 +111,7 @@ public class AddActivity extends AppCompatActivity
                 onFabClicked();
             }
         });
-
-        //    navigationView.setNavigationItemSelectedListener(this);
-
-        //    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        //            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //    toggle.syncState();
-        //    ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,)
-        //toolbar.setNavigationIcon(R.drawable.arrow_back_black_18x18);
         navigationView.setNavigationItemSelectedListener(this);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RxView.clicks(generate).subscribe(new Action1<Void>() {
@@ -144,7 +121,6 @@ public class AddActivity extends AppCompatActivity
                 input_userPass.setText(generator.randomString(seekBar.getProgress()));
             }
         });
-
         RxToolbar.navigationClicks(toolbar).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -153,22 +129,6 @@ public class AddActivity extends AppCompatActivity
         });
         seekBar.setMax(16);
         seekBar.setProgress(6);
-        seekBar.setOnSeekBarChangeListener(new android.widget.SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(android.widget.SeekBar seekBar, int progress, boolean fromUser) {
-                //Toast.makeText(AddActivity.this, " " + progress, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStartTrackingTouch(android.widget.SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(android.widget.SeekBar seekBar) {
-
-            }
-        });
     }
 
     @Override
@@ -212,56 +172,46 @@ public class AddActivity extends AppCompatActivity
     public void onWebsiteSelected(View view) {
         switch (view.getId()) {
             case R.id.logo_baidu:
-                input_website.setText("www.baidu.com");
+                input_website.setText(R.string.baidu);
                 dialog.dismiss();
                 break;
             case R.id.logo_bilibili:
-                input_website.setText("www.bilibili.com");
+                input_website.setText(R.string.bilibili);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_facebook:
-                input_website.setText("www.facebook.com");
+                input_website.setText(R.string.facebook);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_github:
-                input_website.setText("github.com");
+                input_website.setText(R.string.github);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_instagram:
-                input_website.setText("www.instagram.com");
+                input_website.setText(R.string.instagram);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_google:
-                input_website.setText("www.google.com");
+                input_website.setText(R.string.google);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_netease:
-                input_website.setText("www.netease.com");
+                input_website.setText(R.string.netease);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_steam:
-                input_website.setText("www.steam.com");
+                input_website.setText(R.string.steam);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_tencent:
-                input_website.setText("www.tencent.com");
+                input_website.setText(R.string.tencent);
                 dialog.dismiss();
-
                 break;
             case R.id.logo_twitter:
-                input_website.setText("www.twitter.com");
+                input_website.setText(R.string.twitter);
                 dialog.dismiss();
-
                 break;
             default:
-                //  Toast.makeText(this, " " + view.getId(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -269,8 +219,5 @@ public class AddActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-//        if(!util.getFlag(this)){
-//            startActivity(new Intent(this, LockActivity.class));
-//        }
     }
 }

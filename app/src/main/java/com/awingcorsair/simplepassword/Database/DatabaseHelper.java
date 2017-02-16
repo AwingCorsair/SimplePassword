@@ -59,10 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //    public void getRecord(Record record){
-//        SQLiteDatabase db=this.getWritableDatabase(database_password);
-//        Cursor cursor=db.query(TABLE_NAME,new String[]{KEY_ID,KEY_WEBSITE,KEY_USERNAME,KEY_PASSWORD,KEY_NOTE},KEY_NAME+=?,new String[]{name},null,null,null,null);
-//    }
     public int getRecordCounts() {
         String selectQuery = "SELECT * FROM "+TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase(database_password);
@@ -107,12 +103,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
 
     }
-
-//    public void deleteRecord(Record record){
-//        SQLiteDatabase db=this.getWritableDatabase(database_password);
-//        db.delete(TABLE_NAME,KEY_ID+"=?",new String[]{String.valueOf(record.getId())});
-//        db.close();
-//    }
 
     public void deleteRecord(int id){
         SQLiteDatabase db=this.getWritableDatabase(database_password);

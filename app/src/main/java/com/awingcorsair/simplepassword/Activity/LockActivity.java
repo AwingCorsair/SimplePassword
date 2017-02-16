@@ -27,15 +27,34 @@ public class LockActivity extends AppCompatActivity{
     @Bind(R.id.lock_edit)
     EditText lockPassword;
     boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lock);
+        ButterKnife.bind(this);
+        CloseActivityClass.activityList.add(this);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils util=new Utils();
+                util.getPassword(LockActivity.this);
+                util.setFlag(LockActivity.this,false);
+                if(util.getPassword(LockActivity.this).equals(lockPassword.getText().toString().trim())){
+                    startActivity(new Intent(LockActivity.this,MainActivity.class));
+                    finish();
+                }else {
+                    Toast.makeText(LockActivity.this,"请输入正确密码~",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
 
         if (doubleBackToExitPressedOnce) {
-        //    super.onBackPressed();
-        //            System.exit(0);
             CloseActivityClass.exitClient(LockActivity.this);
-
-            //    return;
         }
 
         this.doubleBackToExitPressedOnce = true;
@@ -48,33 +67,5 @@ public class LockActivity extends AppCompatActivity{
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
-    }
-
-    @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock);
-        ButterKnife.bind(this);
-        CloseActivityClass.activityList.add(this);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                SharedPreferences sharedPreferences=getSharedPreferences("info",MODE_PRIVATE);
-//                String password=sharedPreferences.getString("mainPassword","null");
-                Utils util=new Utils();
-                util.getPassword(LockActivity.this);
-                util.setFlag(LockActivity.this,false);
-            //    Log.d("pass",lockPassword.getText().toString().trim()+"=?"+password);
-                if(util.getPassword(LockActivity.this).equals(lockPassword.getText().toString().trim())){
-                    startActivity(new Intent(LockActivity.this,MainActivity.class));
-                    finish();
-                }else {
-                    Toast.makeText(LockActivity.this,"请输入正确密码~",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
     }
 }

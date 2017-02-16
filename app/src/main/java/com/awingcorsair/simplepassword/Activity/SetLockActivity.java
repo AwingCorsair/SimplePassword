@@ -22,28 +22,22 @@ import butterknife.ButterKnife;
  */
 public class SetLockActivity extends AppCompatActivity{
 
-//    @Bind(R.id.toolbar)
-//    Toolbar toolbar;
     @Bind(R.id.setlock_fab)
     FloatingActionButton fab;
     @Bind(R.id.setlock_edit)
     EditText lockPassword;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setlock);
         ButterKnife.bind(this);
         CloseActivityClass.activityList.add(this);
-
     //    setSupportActionBar(toolbar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(lockPassword.getText().length()>5){
-//                    SharedPreferences preferences=getSharedPreferences("info",MODE_PRIVATE);
-//                    SharedPreferences.Editor editor=preferences.edit();
-//                    editor.putString("mainPassword",lockPassword.getText().toString().trim());
-//                    editor.commit();
                     Utils util=new Utils();
                     util.setPassword(SetLockActivity.this,lockPassword.getText().toString().trim());
                     util.setFlag(SetLockActivity.this,false);
